@@ -1,0 +1,35 @@
+name: Alerte prix Scarab PoE
+
+on:
+  schedule:
+    # Toutes les 15 minutes (poe.ninja ne rafraîchit pas plus vite de toute façon)
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}   # permet aussi de le lancer manuellement depuis l'onglet Actions
+
+permissions:
+  contents: write   # nécessaire pour committer le fichier d'état (poe_price_state.json)
+
+jobs:
+  check-price:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Vérifier le prix et alerter si besoin
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python3 poe_price_alert.py
+
+      - name: Sauvegarder l'état (plus bas observé) dans le dépôt
+        run: |
+          git config user.name "poe-price-bot"
+          git config user.email "poe-price-bot@users.noreply.github.com"
+          git add poe_price_state.json
+          git diff --quiet --cached || git commit -m "update: état de prix (bot automatique)"
+          git push
