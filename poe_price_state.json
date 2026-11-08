@@ -1,8 +1,8 @@
 {
   "Allflame:Scarab:Divination Scarab of The Cloister": {
     "lowest": 7.39,
-    "last_checked": "08/11/2026 20:23",
-    "last_value": 10.11,
-    "threshold_alerted": false
+    "last_checked": "08/11/2026 23:55",
+    "last_value": 7.61,
+    "threshold_alerted": true
   }
 }
