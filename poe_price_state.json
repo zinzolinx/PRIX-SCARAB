@@ -4,5 +4,11 @@
     "last_checked": "10/11/2026 20:33",
     "last_value": 7.82,
     "threshold_alerted": true
+  },
+  "Standard:Scarab:Divination Scarab of The Cloister": {
+    "lowest": 1.57,
+    "last_checked": "11/11/2026 00:54",
+    "last_value": 1.57,
+    "threshold_alerted": true
   }
 }
